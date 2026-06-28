@@ -122,3 +122,23 @@ Distributed under [GNU AFFERO GENERAL PUBLIC LICENSE Version 3](http://www.gnu.o
 
 ### Included Library
 - [pChart2](http://www.pchart.net) Copyright © 2014 Jean-Damien POGOLOTTI in [GNU GENERAL PUBLIC LICENSE Version 3](http://www.gnu.org/licenses/gpl.txt) licence
+
+## LimeSurvey 7 CE - React editor compatibility
+
+The LS7 React editor (`/editor/`) does not support plugin question attributes via the `newQuestionAttributes` event. You must use the **classic PHP editor** to configure the Graph attributes on your questions.
+
+To force the classic editor, disable the React editor in your user settings:
+
+```bash
+# In the LimeSurvey database
+UPDATE lime_settings_user SET stg_value='0' WHERE stg_name='editorEnabled';
+```
+
+Then log out and log back in. The question editor at `/index.php/questionAdministration/view` will no longer redirect to the React editor.
+
+Once the Graph attributes are configured and saved, the plugin works correctly on the survey-taking side regardless of which editor was used.
+
+To re-enable the React editor:
+```bash
+UPDATE lime_settings_user SET stg_value='1' WHERE stg_name='editorEnabled';
+```
